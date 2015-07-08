@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.jcj.junit.jcategories.annotations.Sprint;
+import com.jcj.jcategory.annotations.Sprint;
 
 public class TestCaseDashboard
 {

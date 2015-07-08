@@ -3,7 +3,7 @@ package com.jcj.jcategory;
 import org.junit.runner.Description;
 import org.junit.runner.manipulation.Filter;
 
-import com.jcj.junit.jcategories.annotations.UserStory;
+import com.jcj.jcategory.annotations.UserStory;
 
 public class FilterUserStory extends Filter
 {

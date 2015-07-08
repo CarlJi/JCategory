@@ -1,4 +1,4 @@
-package com.jcj.junit.jcategories.annotations;
+package com.jcj.jcategory.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,8 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface Component
+@Target({ ElementType.TYPE, ElementType.METHOD })
+public @interface Release
 {
   String value();
 }

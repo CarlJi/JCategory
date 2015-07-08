@@ -1,4 +1,4 @@
-package com.jcj.junit.jcategories.annotations;
+package com.jcj.jcategory.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;

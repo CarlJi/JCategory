@@ -1,4 +1,4 @@
-package com.jcj.junit.jcategories.annotations;
+package com.jcj.jcategory.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,9 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface Defect
+public @interface Sprint
 {
-  String CR();
-
-  String Title();
+  String value();
 }

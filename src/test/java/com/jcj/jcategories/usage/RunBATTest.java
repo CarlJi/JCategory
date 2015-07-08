@@ -5,7 +5,7 @@ import org.junit.experimental.categories.Categories.IncludeCategory;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite.SuiteClasses;
 
-import com.jcj.junit.jcategories.annotations.BAT;
+import com.jcj.jcategory.annotations.BAT;
 
 
 @RunWith(Categories.class)
