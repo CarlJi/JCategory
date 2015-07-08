@@ -1,4 +1,4 @@
-package com.jcj.jcategories;
+package com.jcj.jcategory;
 
 import org.junit.runner.Description;
 import org.junit.runner.manipulation.Filter;

@@ -2,9 +2,9 @@ package com.jcj.jcategories.usage;
 
 import org.junit.runner.RunWith;
 
-import com.jcj.jcategories.AnnotationClasspathSuite;
+import com.jcj.jcategory.JCategory;
 
-@RunWith(AnnotationClasspathSuite.class)
+@RunWith(JCategory.class)
 public class AllTestSuite
 {
 }

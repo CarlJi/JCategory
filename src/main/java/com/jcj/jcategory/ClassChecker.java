@@ -1,4 +1,4 @@
-package com.jcj.jcategories;
+package com.jcj.jcategory;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;

@@ -1,4 +1,4 @@
-package com.jcj.jcategories;
+package com.jcj.jcategory;
 
 public interface Checker
 {

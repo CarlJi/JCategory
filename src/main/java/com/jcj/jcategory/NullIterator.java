@@ -1,4 +1,4 @@
-package com.jcj.jcategories;
+package com.jcj.jcategory;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

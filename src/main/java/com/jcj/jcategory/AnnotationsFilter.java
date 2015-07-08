@@ -1,4 +1,4 @@
-package com.jcj.jcategories;
+package com.jcj.jcategory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,13 +8,11 @@ import org.junit.runner.manipulation.Filter;
 
 public class AnnotationsFilter extends Filter
 {
-
   List<Filter> filters = null;
 
   @Override
   public boolean shouldRun(Description description)
   {
-
     List<Boolean> result = new ArrayList<Boolean>();
 
     for(Filter filter : filters)

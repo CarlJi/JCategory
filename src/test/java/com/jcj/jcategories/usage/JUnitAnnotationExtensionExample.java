@@ -2,10 +2,10 @@ package com.jcj.jcategories.usage;
 
 import org.junit.runner.RunWith;
 
-import com.jcj.jcategories.AnnotationClasspathSuite;
-import com.jcj.jcategories.AnnotationClasspathSuite.IncludeSprint;
+import com.jcj.jcategory.JCategory;
+import com.jcj.jcategory.JCategory.IncludeSprint;
 
-@RunWith(AnnotationClasspathSuite.class)
+@RunWith(JCategory.class)
 @IncludeSprint(value = "15.10")
 public class JUnitAnnotationExtensionExample
 {

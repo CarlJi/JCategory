@@ -1,4 +1,4 @@
-package com.jcj.jcategories;
+package com.jcj.jcategory;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -13,7 +13,14 @@ import org.junit.runners.Suite;
 import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.RunnerBuilder;
 
-public class AnnotationClasspathSuite extends Suite
+/**
+ * 
+ * Custom suite to run test case flexibility
+ * 
+ * @author Carl Ji
+ *
+ */
+public class JCategory extends Suite
 {
   private static final String DEFAULT_CLASSPATH_PROPERTY = "java.class.path";
   private static final SuiteType[] DEFAULT_SUITE_TYPES = new SuiteType[] { SuiteType.TEST_CLASSES };
@@ -43,6 +50,9 @@ public class AnnotationClasspathSuite extends Suite
     public SuiteType[] value();
   }
 
+  /**
+   * Specify which sprints that tests were marked with will be included
+   */
   @Retention(RetentionPolicy.RUNTIME)
   public @interface IncludeSprint
   {
@@ -55,12 +65,36 @@ public class AnnotationClasspathSuite extends Suite
     boolean isOnly() default false;
   }
 
+  /**
+   * Exclude which sprint that the tests were marked with will be excluded
+   */
+  @Retention(RetentionPolicy.RUNTIME)
+  public @interface ExcludeSprint
+  {
+    String value();
+  }
+
+  /**
+   * Specify which UserStory that the tests were marked with will be included
+   */
   @Retention(RetentionPolicy.RUNTIME)
   public @interface IncludeUserStory
   {
     String value();
   }
 
+  /**
+   * Exclude which UserStory that the tests were marked with will be excluded
+   */
+  @Retention(RetentionPolicy.RUNTIME)
+  public @interface ExcludeUserStory
+  {
+    String value();
+  }
+
+  /**
+   * Specify which UserStory that the tests were marked with will be included
+   */
   @Retention(RetentionPolicy.RUNTIME)
   public @interface IncludeDefect
   {
@@ -68,9 +102,18 @@ public class AnnotationClasspathSuite extends Suite
   }
 
   /**
+   * Specify which UserStory that the tests were marked with will be excluded
+   */
+  @Retention(RetentionPolicy.RUNTIME)
+  public @interface ExcludeDefect
+  {
+    String value();
+  }
+
+  /**
    * Used by JUnit
    */
-  public AnnotationClasspathSuite(Class<?> suiteClass, RunnerBuilder builder) throws InitializationError
+  public JCategory(Class<?> suiteClass, RunnerBuilder builder) throws InitializationError
   {
     super(builder, suiteClass, getTestclasses(new ClasspathClassesFinder(getClasspathProperty(suiteClass), new ClassChecker(
         getSuiteType(suiteClass))).find()));
