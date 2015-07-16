@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface Defect
 {
-  String CR();
+  String value();
 
-  String Title();
+  String Title() default "";
 }
