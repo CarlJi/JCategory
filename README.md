@@ -33,11 +33,86 @@ Note：因为代码重构类多次，博客里的代码可能不是最新的。
 
 
 
-##如何使用##
+#如何使用#
 
-当我们把Test Case打上标签之后，我们就可以自由的使用它们了。
+当我们把Test Case打上标签之后，我们就可以自由的使用它们了。使用也很简单，我们只需要创建一个Class，然后用JCategory修饰就可以类，跟Junit4 的Categories使用非常像，比如下面：
 
-- 
+    import org.junit.runner.RunWith;
+    import com.jcj.jcategory.JCategory;
+
+    @RunWith(JCategory.class)
+    public class AllTestSuite
+    {
+    }
+
+默认执行所有的Test Cases.
+
+##与Categories结合##
+
+因为JCategory继承自suite，所有它也能与Categories结合使用，达到代替suiteClass，自动收集Test Class的功能。
+比如我们想只执行BAT的Test Cases，我们就可以结合上面的AllTestSuite类，这么用：
+
+    import org.junit.experimental.categories.Categories;
+	import org.junit.experimental.categories.Categories.IncludeCategory;
+	import org.junit.runner.RunWith;
+	import org.junit.runners.Suite.SuiteClasses;
+	import com.jcj.jcategory.annotations.BAT;
+	
+	@RunWith(Categories.class)
+	@IncludeCategory(BAT.class)
+	@SuiteClasses(AllTestSuite.class)
+	public class RunBATTest
+	{
+	}
+
+##Include选择自定义的注解：Sprint，UserStory，Defect##
+
+比如我想只执行Sprint15.14的Test Cases:
+
+    import org.junit.runner.RunWith;
+	import com.jcj.jcategory.JCategory;
+	import com.jcj.jcategory.JCategory.IncludeSprint;
+	
+	@RunWith(JCategory.class)
+	@IncludeSprint("15.14")
+	public class JCategoryTest {
+	}
+
+或者只测Sprint15.14的UserStory US40251:
+
+    @RunWith(JCategory.class)
+	@IncludeSprint("15.14")
+	@IncludeUserStory("US40251")
+	public class JCategoryTest {
+	}
+
+或者做Defect 2015的Regression Tests：
+
+    @RunWith(JCategory.class)
+	@IncludeDefect("2015")
+	public class JCategoryTest {
+	}
 
 
+##Exclude不希望执行的Test Cases##
+类似于Junit4的Categories，我们也可以Exclude掉不期望的执行的Case。
+比如：不执行所有属于Sprint15.15的Test Cases：
 
+    @RunWith(JCategory.class)
+	@ExcludeSprint("15.15")
+	public class JCategoryTest {
+	}
+
+不执行所有属于UserStory 40255的Test Cases:
+
+    @RunWith(JCategory.class)
+	@ExcludeUserStory("US40255")
+	public class JCategoryTest {
+	}
+
+
+## Contact me ? ##
+
+Email: **jinsdu@outlook.com** 
+
+Blog: <http://www.cnblogs.com/jinsdu/>
