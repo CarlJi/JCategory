@@ -1,4 +1,4 @@
-# [English](README.md) | Chinese #
+# [English](README.md) | 中文 #
 
 ----------
 

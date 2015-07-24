@@ -1,4 +1,4 @@
-# English | [Chinese](Chinese.md) #
+# English | [中文](Chinese.md) #
 
 ----------
 
