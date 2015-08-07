@@ -29,7 +29,7 @@
 		// Case Logic
 	}
 
-相信的设计思路，可参见我的一篇博客：
+详细的设计思路，可参见我的一篇博客：
 
 [JUnit扩展：引入新注解Annotation](http://www.cnblogs.com/jinsdu/p/4373070.html)
 
@@ -39,7 +39,7 @@ Note：因为代码重构类多次，博客里的代码可能不是最新的。
 
 #如何使用#
 
-当我们把Test Case打上标签之后，我们就可以自由的使用它们了。使用也很简单，我们只需要创建一个Class，然后用JCategory修饰就可以类，跟Junit4 的Categories使用非常像，比如下面：
+当我们把Test Case打上标签之后，我们就可以自由的使用它们了。使用也很简单，我们只需要创建一个Class，然后用JCategory修饰这个类就，跟Junit4 的Categories使用非常像，比如下面：
 
     import org.junit.runner.RunWith;
     import com.jcj.jcategory.JCategory;

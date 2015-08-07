@@ -5,86 +5,114 @@
 # JCategory #
 
 
-Please note this project has reference for [ClasspathSuite](https://github.com/takari/takari-cpsuite), which was used to find Test class.
+This tool is a junit4 extension tool, which can help you run your test cases more flexible, 
 
+From technological level, this is a custom junit4 runner, which is more like `Categories`, but have done some modifications and adjustments:
 
-### Project Goal ###
+- Automatically find all the test cases. We know that when we use `Categories` , we must use `SuiteClasses` to collect how many case we want to run manually. While `JCategory` has helped you do this part automatically(Refer:[ClasspathSuite](https://github.com/takari/takari-cpsuite)).
+- Define all kinds of annotations which can be suitable for the test scenarios on agile/scrum mode or with a mass of test case.  
 
-When we test a big project, we may have more and more test cases, then a problems arise: we may need a large of time to run all of test cases one time, and even we use TestSuite to orginaze our test cases, it still seems inconcenience, since we need add test case one by one.
+Currently, it defined the following new annotations:
 
-To run cases based on Package/Class structure or different categories is a good choice, but what's more, thinking can we have another strategory to filter our cases more related with our requirements? Can we run test cases more specific for Scrum testing?
+1. **Sprint** - Mark which sprint the test case or feature was invovled
+2. **UserStory** - Mark which user story the case was tested or targeted. The benefit of this annotation can help us easily understand which feature the case was tested even after a long time
+3. **Defect** - If this is a regression case which cover a bug or there is a bug which would cause thiscase failed, we can use **Defect** annotation to mark it. 
 
-OK, here is the solution!
+So with all these annotations, we can develop our test case as this:
+    
+    @Test
+	@Sprint("15.13")
+	@UserStory("US2011")
+	@Defect("1234")
+	public void testJCategory()
+	{
+		// Case Logic
+	}
+
  
 ### How to use it ? ###
 
-Add the defined annotations to mark the test case as needed like below:
+After we marked our test cases with expected annotations, we can use `JCategory` to run test cases more flexible.
+We just need create a class, then use `RunWith(JCategory.class)` to decorate it, same with the usage of junit `Categories`.
 
-```java
-import org.junit.Test;
-import org.junit.extensions.cpsuite.annotations.Defect;
-import org.junit.extensions.cpsuite.annotations.Sprint;
-import org.junit.extensions.cpsuite.annotations.UserStory;
+    import org.junit.runner.RunWith;
+    import com.jcj.jcategory.JCategory;
 
-public class ExampleCase
-{
-  @Test
-  @Sprint("15.8")
-  @UserStory("US45867")
-  @Defect(CR = "12354", Title = "Unable update user name")
-  public void test_PAMGetMiramInvitationResource_201_InviteOneUser()
-  {
-  }
-}
-```
+    @RunWith(JCategory.class)
+    public class AllTestSuite
+    {
+    }  
 
-The is no any influence for your other test cases.
+By default, it will run all the test cases.
 
  
-### How to filter these cases ? ###
+### Integrate with Junit `Categories` ###
 
-Based on the annotations you add above, now you have many options to run your test cases if you want.
+`JCategory` also can work with junit `Categoryies` in order to collect the test case automaticallly.
+For example, if we only want to run the case was marked as BAT, we can do it like this:
 
-- **You can only run Sprint 15.8 Test cases:**
-  ```java
-import org.junit.extensions.cpsuite.ClasspathSuite;
-import org.junit.extensions.cpsuite.ClasspathSuite.IncludeSprint;
-import org.junit.runner.RunWith;
+    import org.junit.experimental.categories.Categories;
+	import org.junit.experimental.categories.Categories.IncludeCategory;
+	import org.junit.runner.RunWith;
+	import org.junit.runners.Suite.SuiteClasses;
+	import com.jcj.jcategory.annotations.BAT;
+	
+	@RunWith(Categories.class)
+	@IncludeCategory(BAT.class)
+	@SuiteClasses(AllTestSuite.class)
+	public class RunBATTest
+	{
+	}
 
-@RunWith(ClasspathSuite.class)
-@IncludeSprint(value = "15.8", isOnly = true)
-public class JUnitAnnotationExtensionExample
-{
-}
-```
+`AllTestSuite` is just the class we used in the previous example.
 
-- **You can only run the test cases belong to US45867 in Sprint 15.8:**
-  ```java
-import org.junit.extensions.cpsuite.ClasspathSuite;
-import org.junit.extensions.cpsuite.ClasspathSuite.IncludeSprint;
-import org.junit.extensions.cpsuite.ClasspathSuite.IncludeUserStory;
-import org.junit.runner.RunWith;
 
-@RunWith(ClasspathSuite.class)
-@IncludeSprint(value = "15.8", isOnly = true)
-@IncludeUserStory("US45867")
-public class JUnitAnnotationExtensionExample
-{
-}
-```
+### Include the case marked with the annotations: Sprint，UserStor or Defect ###
 
-- **You can only run all test cases which cover a defect to do full regression testing:**
-  ```java
-import org.junit.extensions.cpsuite.ClasspathSuite;
-import org.junit.extensions.cpsuite.ClasspathSuite.IncludeDefect;
-import org.junit.runner.RunWith;
+For example, we only want to run the test case under sprint 15.14:
 
-@RunWith(ClasspathSuite.class)
-@IncludeDefect("")
-public class JUnitAnnotationExtensionExample
-{
-}
-```
+    import org.junit.runner.RunWith;
+	import com.jcj.jcategory.JCategory;
+	import com.jcj.jcategory.JCategory.IncludeSprint;
+	
+	@RunWith(JCategory.class)
+	@IncludeSprint("15.14")
+	public class JCategoryTest {
+	}
+
+Or, we want to run the test cases belong to User Story US40251 under sprint 15.14:
+
+    @RunWith(JCategory.class)
+	@IncludeSprint("15.14")
+	@IncludeUserStory("US40251")
+	public class JCategoryTest {
+	}
+
+Or only execute the regression tests for defect 2015:
+
+    @RunWith(JCategory.class)
+	@IncludeDefect("2015")
+	public class JCategoryTest {
+	}
+
+### Exclude the case marked with the annotations: Sprint，UserStor or Defect ###
+Same with junit `Categories`, we also can exclude the test cases that we do not want to run.
+
+For example, not excute the test cases belong to sprint 15.14:
+
+    @RunWith(JCategory.class)
+	@ExcludeSprint("15.15")
+	public class JCategoryTest {
+	}
+
+Or not execute the test cases belong to user story 40255:
+
+    @RunWith(JCategory.class)
+	@ExcludeUserStory("US40255")
+	public class JCategoryTest {
+	}
+
+
 
 ### Contact me ? ###
 
